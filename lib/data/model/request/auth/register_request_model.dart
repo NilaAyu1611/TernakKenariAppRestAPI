@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-class PostingJualRequestModel {
+class RegisterRequestModel {
     final String? username;
     final String? email;
     final String? password;
     final String? passwordConfirmation;
     final int? roleId;
 
-    PostingJualRequestModel({
+    RegisterRequestModel({
         this.username,
         this.email,
         this.password,
@@ -15,11 +15,11 @@ class PostingJualRequestModel {
         this.roleId,
     });
 
-    factory PostingJualRequestModel.fromJson(String str) => PostingJualRequestModel.fromMap(json.decode(str));
+    factory RegisterRequestModel.fromJson(String str) => RegisterRequestModel.fromMap(json.decode(str));
 
     String toJson() => json.encode(toMap());
 
-    factory PostingJualRequestModel.fromMap(Map<String, dynamic> json) => PostingJualRequestModel(
+    factory RegisterRequestModel.fromMap(Map<String, dynamic> json) => RegisterRequestModel(
         username: json["username"],
         email: json["email"],
         password: json["password"],
