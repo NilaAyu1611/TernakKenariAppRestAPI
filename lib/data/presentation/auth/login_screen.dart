@@ -1,10 +1,14 @@
 import 'package:canarry_app1/core/components/custom_text_field.dart';
 import 'package:canarry_app1/core/components/spaces.dart';
 import 'package:canarry_app1/core/constants/colors.dart';
+import 'package:canarry_app1/core/core.dart';
+import 'package:canarry_app1/data/model/request/auth/login_request_mode.dart';
 import 'package:canarry_app1/data/presentation/auth/bloc/login/login_bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -88,7 +92,74 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
-                const SpaceHeight(30),               
+                const SpaceHeight(30),  
+                 BlocConsumer<LoginBloc, LoginState>(
+                  listener: (context, state) {
+                    if (state is LoginFailure) {
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(SnackBar(content: Text(state.error)));
+                    } else if (state is LoginSuccess) {
+                      final role = state.responseModel.user?.role?.toLowerCase();
+                      if (role == 'admin') {
+                        context.pushAndRemoveUntil(
+                          const AdminConfirmScreen(),
+                          (route) => false,
+                        );
+                      } else if (role == 'buyer') {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(state.responseModel.message!)),
+                        );
+                        context.pushAndRemoveUntil(
+                          const BuyerProfileScreen(),
+                          (route) => false,
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Role tidak dikenal')),
+                        );
+                      }
+                    }
+                  },
+                  builder: (context, state) {
+                    return Button.filled(
+                      onPressed: state is LoginLoading
+                          ? null
+                          : () {
+                              if (_key.currentState!.validate()) {
+                                final request = LoginRequestModel(
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                );
+                                context.read<LoginBloc>().add(
+                                      LoginRequested(requestModel: request),
+                                    );
+                              }
+                            },
+                      label: state is LoginLoading ? 'Memuat...' : 'Masuk',
+                    );
+                  },
+                ),
+                const SpaceHeight(20),
+                Text.rich(
+                  TextSpan(
+                    text: 'Belum memiliki akun? Silahkan ',
+                    style: TextStyle(
+                      color: AppColors.grey,
+                      fontSize: MediaQuery.of(context).size.width * 0.03,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: 'Daftar disini!',
+                        style: TextStyle(color: AppColors.primary),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            context.push(const RegisterScreen());
+                          },
+                      ),
+                    ],
+                  ),
+                ),             
               ],
             ),
           ),
