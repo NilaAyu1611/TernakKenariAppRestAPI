@@ -115,8 +115,105 @@ class _BuyerHomeScreenState extends State<BuyerHomeScreen> {
 
                       if (burungList.isEmpty) {
                         return const Center(child: Text("Tidak ada burung tersedia."));
-                      }                      
-                    }                    
+                      }
+
+                      return GridView.builder(
+                        itemCount: burungList.length,
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 10,
+                          crossAxisSpacing: 10,
+                          childAspectRatio: 0.8,
+                        ),
+                        itemBuilder: (context, index) {
+                          final burung = burungList[index];
+
+                          return GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return CupertinoAlertDialog(
+                                    title: const Text("Detail Burung"),
+                                    content: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          burung.noRing,
+                                          style: const TextStyle(fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          "Jenis Kenari: ${burung.jenisKenari}",
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        Text(
+                                          "Jenis Kelamin: ${burung.jenisKelamin}",
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        Text(
+                                          "Harga: Rp${burung.harga}",
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Text(
+                                          "Status: ${burung.status}",
+                                          style: const TextStyle(
+                                            color: Colors.green,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                            child: Card(
+                              elevation: 4,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Container(
+                                padding: const EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(
+                                    color: Colors.grey.shade300,
+                                  ),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      burung.noRing,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      "Jenis: ${burung.jenisKenari}",
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    Text(
+                                      "Kelamin: ${burung.jenisKelamin}",
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    Text(
+                                      "Harga: Rp${burung.harga}",
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    }
+                    return const SizedBox.shrink();
                     },
                 ),
               ),
