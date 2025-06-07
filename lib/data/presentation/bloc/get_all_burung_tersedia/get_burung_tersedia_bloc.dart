@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:canarry_app1/data/model/response/burung_semua_tersedia_model.dart';
 import 'package:meta/meta.dart';
 
 part 'get_burung_tersedia_event.dart';
