@@ -1,5 +1,11 @@
+import 'package:canarry_app1/core/components/custom_text_field.dart';
+import 'package:canarry_app1/core/components/spaces.dart';
+import 'package:canarry_app1/core/constants/colors.dart';
+import 'package:canarry_app1/data/presentation/auth/bloc/login/login_bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -33,7 +39,62 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Form(
+          key: _key,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16.0, 0, 16.0, 0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SpaceHeight(170),
+                Text(
+                  'SELAMAT DATANG KEMBALI',
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.width * 0.05,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SpaceHeight(30),
+                CustomTextField(
+                  validator: 'Email tidak boleh kosong',
+                  controller: emailController,
+                  label: 'Email',
+                  prefixIcon: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(Icons.email),
+                  ),
+                ),
+                const SpaceHeight(25),
+                CustomTextField(
+                  validator: 'Password tidak boleh kosong',
+                  controller: passwordController,
+                  label: 'Password',
+                  obscureText: isShowPassword,
+                  prefixIcon: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(Icons.lock),
+                  ),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isShowPassword = !isShowPassword;
+                      });
+                    },
+                    icon: Icon(
+                      isShowPassword ? Icons.visibility : Icons.visibility_off,
+                      color: AppColors.grey,
+                    ),
+                  ),
+                ),
+                const SpaceHeight(30),               
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 
