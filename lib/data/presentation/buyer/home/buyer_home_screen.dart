@@ -1,5 +1,5 @@
 import 'package:canarry_app1/core/components/spaces.dart';
-import 'package:canarry_app1/data/presentation/auth/login_screen.dart';
+import 'package:canarry_app1/data/presentation/auth/login_screennn.dart';
 import 'package:canarry_app1/data/presentation/bloc/get_all_burung_tersedia/get_burung_tersedia_bloc.dart';
 import 'package:canarry_app1/data/presentation/buyer/profile/bloc/profile_buyer_bloc.dart';
 import 'package:flutter/cupertino.dart';

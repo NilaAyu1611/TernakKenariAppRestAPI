@@ -4,12 +4,12 @@ import 'package:canarry_app1/core/constants/colors.dart';
 import 'package:canarry_app1/core/core.dart';
 import 'package:canarry_app1/data/model/request/auth/login_request_mode.dart';
 import 'package:canarry_app1/data/presentation/auth/bloc/login/login_bloc.dart';
-import 'package:dartz/dartz.dart';
+import 'package:canarry_app1/data/presentation/auth/register_screen.dart';
+import 'package:canarry_app1/data/presentation/buyer/profile/buyer_profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -17,7 +17,6 @@ class LoginScreen extends StatefulWidget {
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
-
 
 class _LoginScreenState extends State<LoginScreen> {
   late final TextEditingController emailController;
@@ -41,14 +40,15 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+      return Scaffold(
       body: SingleChildScrollView(
         child: Form(
           key: _key,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(16.0, 0, 16.0, 0),
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -75,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   validator: 'Password tidak boleh kosong',
                   controller: passwordController,
                   label: 'Password',
-                  obscureText: isShowPassword,
+                  obscureText: !isShowPassword,
                   prefixIcon: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Icon(Icons.lock),
@@ -93,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SpaceHeight(30),  
-                 BlocConsumer<LoginBloc, LoginState>(
+                BlocConsumer<LoginBloc, LoginState>(
                   listener: (context, state) {
                     if (state is LoginFailure) {
                       ScaffoldMessenger.of(
@@ -166,8 +166,5 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
-  }
+  }  
 }
-
-
-
