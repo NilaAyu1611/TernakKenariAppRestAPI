@@ -1,8 +1,14 @@
 import 'package:canarry_app1/core/components/custom_text_field.dart';
 import 'package:canarry_app1/core/components/spaces.dart';
 import 'package:canarry_app1/core/constants/colors.dart';
+import 'package:canarry_app1/core/core.dart';
+import 'package:canarry_app1/data/model/request/auth/register_request_model.dart';
+import 'package:canarry_app1/data/presentation/auth/bloc/register/register_bloc.dart';
+import 'package:canarry_app1/data/presentation/auth/login_screen.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -105,7 +111,73 @@ class _RegisterSreenState extends State<RegisterScreen> {
                       ),
                     ),
                   ],
-                ),                
+                ), 
+                const SpaceHeight(50),
+                BlocConsumer<RegisterBloc, RegisterState>(
+                  listener: (context, state) {
+                    if (state is RegisterSuccess) {
+                      context.pushAndRemoveUntil(
+                        const LoginScreen(),
+                        (route) => false,
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(state.message),
+                          backgroundColor: AppColors.primary,
+                        ),
+                      );
+                    } else if (state is RegisterFailure) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(state.error),
+                          backgroundColor: AppColors.red,
+                        ),
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    return Button.filled(
+                      onPressed: state is RegisterLoading
+                          ? null
+                          : () {
+                              if (_key.currentState!.validate()) {
+                                final request = RegisterRequestModel(
+                                  username: namaController.text,
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                );
+                                context.read<RegisterBloc>().add(
+                                      RegisterRequested(requestModel: request),
+                                    );
+                              }
+                            },
+                      label: state is RegisterLoading ? 'Memuat...' : 'Daftar',
+                    );
+                  },
+                ),
+                const SpaceHeight(20),
+                Text.rich(
+                  TextSpan(
+                    text: 'Sudah memiliki akun? ',
+                    style: TextStyle(
+                      color: AppColors.grey,
+                      fontSize: MediaQuery.of(context).size.width * 0.03,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: 'Login disini!',
+                        style: TextStyle(color: AppColors.primary),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            context.pushAndRemoveUntil(
+                              const LoginScreen(),
+                              (route) => false,
+                            );
+                          },
+                      ),
+                    ],
+                  ),
+                ),               
               ],
             ),
           ),
