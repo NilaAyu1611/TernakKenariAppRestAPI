@@ -3,7 +3,7 @@ import 'dart:convert';
 class AdminProfileResponseModel {
     final String? message;
     final int? statusCode;
-    final Data? data;
+    final AdminProfile? data;
 
     AdminProfileResponseModel({
         this.message,
@@ -18,7 +18,7 @@ class AdminProfileResponseModel {
     factory AdminProfileResponseModel.fromMap(Map<String, dynamic> json) => AdminProfileResponseModel(
         message: json["message"],
         statusCode: json["status_code"],
-        data: json["data"] == null ? null : Data.fromMap(json["data"]),
+        data: json["data"] == null ? null : AdminProfile.fromMap(json["data"]),
     );
 
     Map<String, dynamic> toMap() => {
@@ -28,20 +28,20 @@ class AdminProfileResponseModel {
     };
 }
 
-class Data {
+class AdminProfile {
     final int? id;
     final String? name;
 
-    Data({
+    AdminProfile({
         this.id,
         this.name,
     });
 
-    factory Data.fromJson(String str) => Data.fromMap(json.decode(str));
+    factory AdminProfile.fromJson(String str) => AdminProfile.fromMap(json.decode(str));
 
     String toJson() => json.encode(toMap());
 
-    factory Data.fromMap(Map<String, dynamic> json) => Data(
+    factory AdminProfile.fromMap(Map<String, dynamic> json) => AdminProfile(
         id: json["id"],
         name: json["name"],
     );

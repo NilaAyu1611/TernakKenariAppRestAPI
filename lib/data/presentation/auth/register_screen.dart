@@ -4,7 +4,7 @@ import 'package:canarry_app1/core/constants/colors.dart';
 import 'package:canarry_app1/core/core.dart';
 import 'package:canarry_app1/data/model/request/auth/register_request_model.dart';
 import 'package:canarry_app1/data/presentation/auth/bloc/register/register_bloc.dart';
-import 'package:canarry_app1/data/presentation/auth/login_screennn.dart';
+import 'package:canarry_app1/data/presentation/auth/login_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

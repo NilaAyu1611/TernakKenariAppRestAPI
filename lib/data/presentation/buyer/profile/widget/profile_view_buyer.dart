@@ -1,7 +1,7 @@
 
 import 'package:canarry_app1/core/core.dart';
-import 'package:canarry_app1/data/model/response/login_response_model.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:canarry_app1/data/model/response/buyer/buyer_profile_response_model.dart';
+import 'package:canarry_app1/data/presentation/buyer/home/buyer_home_screen.dart';
 import 'package:flutter/material.dart';
 
 class ProfileViewBuyer extends StatelessWidget {

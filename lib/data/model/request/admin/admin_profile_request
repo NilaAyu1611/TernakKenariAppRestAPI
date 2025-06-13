@@ -1,17 +1,17 @@
 import 'dart:convert';
 
-class AdminProfileRequest {
+class AdminProfileRequestModel {
     final String? name;
 
-    AdminProfileRequest({
+    AdminProfileRequestModel({
         this.name,
     });
 
-    factory AdminProfileRequest.fromJson(String str) => AdminProfileRequest.fromMap(json.decode(str));
+    factory AdminProfileRequestModel.fromJson(String str) => AdminProfileRequestModel.fromMap(json.decode(str));
 
     String toJson() => json.encode(toMap());
 
-    factory AdminProfileRequest.fromMap(Map<String, dynamic> json) => AdminProfileRequest(
+    factory AdminProfileRequestModel.fromMap(Map<String, dynamic> json) => AdminProfileRequestModel(
         name: json["name"],
     );
 

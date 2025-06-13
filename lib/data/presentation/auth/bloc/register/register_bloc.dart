@@ -18,7 +18,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   ) async {
     emit(RegisterLoading());
 
-    final result = await authRepository. register(event.requestModel);
+    final result = await authRepository.register(event.requestModel);
 
     result. fold(
       (l) => emit(RegisterFailure(error: l)),

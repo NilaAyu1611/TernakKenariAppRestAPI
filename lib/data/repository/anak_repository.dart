@@ -33,13 +33,13 @@ class AnakRepository {
     }
   }
 
-  Future<Either<String, GetAllAnakResponseModel>> getAllAnak() async {
+  Future<Either<String, GetAllAnakModel>> getAllAnak() async {
   try {
     final response = await _serviceHttpClient.get("admin/anak");
 
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
-      final profileResponse = GetAllAnakResponseModel.fromJson(jsonResponse);
+      final profileResponse = GetAllAnakModel.fromJson(jsonResponse);
       return Right(profileResponse);
     } else {
       final errorMessage = json.decode(response.body);

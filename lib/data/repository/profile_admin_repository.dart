@@ -17,7 +17,7 @@ class ProfileAdminRepository {
 
 
   Future<Either<String, AdminProfileResponseModel>> addProfile(
-    AdminProfileRequest requestModel,
+    AdminProfileRequestModel requestModel,
   ) async {
     try {
       final response = await _serviceHttpClient.postWithToken(

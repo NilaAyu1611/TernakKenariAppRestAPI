@@ -34,13 +34,13 @@ class IndukRepository {
     }
   }
 
-  Future<Either<String, GetAllIndukResponseModel>> getAllInduk() async {
+  Future<Either<String, GetAllIndukModel>> getAllInduk() async {
     try {
       final response = await _serviceHttpClient.get("admin/induk");
 
       if (response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
-        final profileResponse = GetAllIndukResponseModel.fromJson(jsonResponse);
+        final profileResponse = GetAllIndukModel.fromJson(jsonResponse);
         return Right(profileResponse);
       } else {
         final errorMessage = json.decode(response.body);

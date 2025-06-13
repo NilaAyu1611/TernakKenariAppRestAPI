@@ -17,7 +17,7 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
   initState() {
   super.initState();
   // Ambil profil pembeli saat halaman dimuat
-  context.read()<ProfileBuyerBloc>().add(GetProfileBuyerEvent());
+  context.read<ProfileBuyerBloc>().add(GetProfileBuyerEvent());
   }
 
   @override

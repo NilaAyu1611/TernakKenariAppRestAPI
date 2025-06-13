@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:canarry_app1/data/model/request/buyer/buyer_profile_request_model.dart';
+import 'package:canarry_app1/data/model/response/buyer/buyer_profile_response_model.dart';
 import 'package:canarry_app1/data/repository/profile_buyer_repository.dart';
-import 'package:meta/meta.dart';
+
+
 
 part 'profile_buyer_event.dart';
 part 'profile_buyer_state.dart';
@@ -10,9 +12,9 @@ class ProfileBuyerBloc extends Bloc<ProfileBuyerEvent, ProfileBuyerState> {
   final ProfileBuyerRepository profileBuyerRepository;
   ProfileBuyerBloc({required this.profileBuyerRepository})
     : super(ProfileBuyerInitial()) {
-  on<AddProfileBuyerEvent>(_addProfileBuyer);
-  on<GetProfileBuyerEvent>(_getProfileBuyer);
-}
+    on<AddProfileBuyerEvent>(_addProfileBuyer);
+    on<GetProfileBuyerEvent>(_getProfileBuyer);
+  }
 
   Future<void> _addProfileBuyer(
     AddProfileBuyerEvent event,
@@ -20,12 +22,12 @@ class ProfileBuyerBloc extends Bloc<ProfileBuyerEvent, ProfileBuyerState> {
   ) async {
     emit(ProfileBuyerLoading());
     final result = await profileBuyerRepository.addProfileBuyer(
-    event. requestModel,
+      event.requestModel,
     );
-    result.fold((error) => emit(ProfileBuyerAddError(message: error)), (
-    profile,
+    result.fold((error) => emit(ProfileBuyerError(message: error)), (
+      profile,
     ) {
-    emit(ProfileBuyerAdded(profile: profile));
+      emit(ProfileBuyerAdded(profile: profile));
     });
   }
 
@@ -36,9 +38,8 @@ class ProfileBuyerBloc extends Bloc<ProfileBuyerEvent, ProfileBuyerState> {
     emit(ProfileBuyerLoading());
     final result = await profileBuyerRepository.getProfileBuyer();
     result.fold(
-    (error) => emit(ProfileBuyerError(message: error)),
-    (profile) => emit(ProfileBuyerLoaded(profile: profile)),
+      (error) => emit(ProfileBuyerError(message: error)),
+      (profile) => emit(ProfileBuyerLoaded(profile: profile)),
     );
   }
 }
-

@@ -7,7 +7,6 @@ import 'package:dartz/dartz.dart';
 
 class ProfileBuyerRepository {
   final ServiceHttpClient _serviceHttpClient;
-
   ProfileBuyerRepository(this._serviceHttpClient);
 
   Future<Either<String, BuyerProfileResponseModel>> addProfileBuyer(
@@ -16,12 +15,14 @@ class ProfileBuyerRepository {
     try {
       final response = await _serviceHttpClient.postWithToken(
         "buyer/profile",
-        requestModel.toMap(),
+        requestModel.toJson(),
       );
 
       if (response.statusCode == 201) {
         final jsonResponse = json.decode(response.body);
-        final profileResponse = BuyerProfileResponseModel.fromJson(jsonResponse);
+        final profileResponse = BuyerProfileResponseModel.fromJson(
+          jsonResponse,
+        );
         return Right(profileResponse);
       } else {
         final errorMessage = json.decode(response.body);
@@ -30,15 +31,17 @@ class ProfileBuyerRepository {
     } catch (e) {
       return Left("An error occurred while adding profile: $e");
     }
-  } 
+  }
 
-   Future<Either<String, BuyerProfileResponseModel>> getProfileBuyer() async {
+  Future<Either<String, BuyerProfileResponseModel>> getProfileBuyer() async {
     try {
       final response = await _serviceHttpClient.get("buyer/profile");
 
       if (response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
-        final profileResponse = BuyerProfileResponseModel.fromJson(jsonResponse);
+        final profileResponse = BuyerProfileResponseModel.fromJson(
+          jsonResponse,
+        );
         print("Profile Response: $profileResponse");
         return Right(profileResponse);
       } else {
@@ -49,5 +52,4 @@ class ProfileBuyerRepository {
       return Left("An error occurred while fetching profile: $e");
     }
   }
-
 }

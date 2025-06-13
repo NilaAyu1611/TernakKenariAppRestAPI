@@ -36,13 +36,13 @@ class PostingRepository {
     }
   }
 
-  Future<Either<String, GetAllBurungResponseModel>> getAllBurung() async {
+  Future<Either<String, GetAllBurungModel>> getAllBurung() async {
     try {
       final response = await _serviceHttpClient.get("admin/burung-semua");
 
       if (response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
-        final getAllBurung = GetAllBurungResponseModel.fromMap(jsonResponse);
+        final getAllBurung = GetAllBurungModel.fromMap(jsonResponse);
         return Right(getAllBurung);
       } else {
         final jsonResponse = json.decode(response.body);

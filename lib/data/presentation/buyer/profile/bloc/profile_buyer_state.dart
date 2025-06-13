@@ -7,7 +7,7 @@ final class ProfileBuyerInitial extends ProfileBuyerState {}
 final class ProfileBuyerLoading extends ProfileBuyerState {}
 
 final class ProfileBuyerLoaded extends ProfileBuyerState {
-  final BuyerProfileRequestModel profile;
+  final BuyerProfileResponseModel profile;
 
   ProfileBuyerLoaded({required this.profile});
 }
@@ -19,7 +19,7 @@ final class ProfileBuyerError extends ProfileBuyerState {
 }
 
 final class ProfileBuyerAdded extends ProfileBuyerState {
-  final BuyerProfileRequestModel profile;
+  final BuyerProfileResponseModel profile;
 
   ProfileBuyerAdded({required this.profile});
 }

@@ -1,5 +1,6 @@
 import 'package:canarry_app1/data/presentation/auth/bloc/login/login_bloc.dart';
 import 'package:canarry_app1/data/presentation/auth/bloc/register/register_bloc.dart';
+import 'package:canarry_app1/data/presentation/auth/login_screen.dart';
 import 'package:canarry_app1/data/presentation/bloc/get_all_burung_tersedia/get_burung_tersedia_bloc.dart';
 import 'package:canarry_app1/data/presentation/buyer/profile/bloc/profile_buyer_bloc.dart';
 import 'package:canarry_app1/data/repository/auth_repository.dart';
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         ),
-        home: const Splashscreen(),
+        home: const LoginScreen(),
       ),
     );
   }
